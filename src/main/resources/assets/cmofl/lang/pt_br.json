@@ -1,0 +1,13 @@
+{
+  "modmenu.descriptionTranslation.cmofl": "Permite especificar quais categorias em Música e Sons silenciar ou alterar o volume quando a janela do Minecraft perder o foco",
+  "cmofl.config.title": "Configurable Mute On Focus Lost Config",
+  "cmofl.config.enabled": "Habilitado",
+  "cmofl.config.enabled.tooltip": "O mod está habilitado?",
+  "cmofl.config.sound_categories": "Categorias de Som",
+  "cmofl.config.sound_categories.tooltip": "Configure o volume de cada categoria de som quando MC perder o foco. Defina o volume da categoria como Desligado se não quiser que ela seja modificada.",
+  "cmofl.config.sound_categories.off": "Desligado",
+  "comfl.config.exception.default": "Redefinindo a configuração para o padrão como uma correção.",
+  "cmofl.config.exception.create": "Uma exceção foi lançada ao tentar criar a configuração:",
+  "cmofl.config.exception.save": "Uma exceção foi lançada ao tentar salvar a configuração:",
+  "cmofl.config.exception.load": "Uma exceção foi lançada ao tentar carregar a configuração:"
+}
