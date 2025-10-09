@@ -15,7 +15,7 @@ public class ConfigurableMuteOnFocusLost implements ModInitializer
 {
     public static final Logger LOGGER = LoggerFactory.getLogger("Configurable Mute On Focus Lost");
     private boolean lastFocused = true;
-    private final Map<String, Double> previousVolumes = new HashMap<>();
+    private final Map<SoundCategory, Double> previousVolumes = new HashMap<>();
 
 	@Override
 	public void onInitialize()
@@ -33,13 +33,13 @@ public class ConfigurableMuteOnFocusLost implements ModInitializer
             {
                 if (!focused)
                 {
-                    for (Map.Entry<String, Integer> entry : ConfigManager.config.soundCategories.entrySet())
+                    for (Map.Entry<SoundCategory, Integer> entry : ConfigManager.config.soundCategories.entrySet())
                     {
                         Integer value = entry.getValue();
                         if (value != -1)
                         {
-                            String key = entry.getKey();
-                            SimpleOption<Double> soundVolumeOption = MinecraftClient.getInstance().options.getSoundVolumeOption(SoundCategory.valueOf(key.toUpperCase()));
+                            SoundCategory key = entry.getKey();
+                            SimpleOption<Double> soundVolumeOption = MinecraftClient.getInstance().options.getSoundVolumeOption(key);
                             previousVolumes.put(key, soundVolumeOption.getValue());
                             soundVolumeOption.setValue(value / 100.0);
                         }
@@ -47,8 +47,8 @@ public class ConfigurableMuteOnFocusLost implements ModInitializer
                 }
                 else
                 {
-                    for (Map.Entry<String, Double> entry : previousVolumes.entrySet())
-                        MinecraftClient.getInstance().options.getSoundVolumeOption(SoundCategory.valueOf(entry.getKey().toUpperCase())).setValue(entry.getValue());
+                    for (Map.Entry<SoundCategory, Double> entry : previousVolumes.entrySet())
+                        MinecraftClient.getInstance().options.getSoundVolumeOption(entry.getKey()).setValue(entry.getValue());
                     previousVolumes.clear();
                 }
                 lastFocused = focused;
