@@ -6,8 +6,8 @@
   "cmofl.config.sound_categories": "Sound Categories",
   "cmofl.config.sound_categories.tooltip": "Configure what volume each sound category is set to when MC loses focus. Set the category's volume to Off if you don't want it to be modified at all",
   "cmofl.config.sound_categories.off": "Off",
-  "comfl.config.exception.default": "Resetting config to default as a fix.",
+  "cmofl.config.exception.default": "Resetting config to default as a fix.",
   "cmofl.config.exception.create": "An exception was been thrown while trying to create the config:",
   "cmofl.config.exception.save": "An exception was been thrown while trying to save the config:",
-  "cmofl.config.exception.load": "An exception was been thrown while trying to save the config:"
+  "cmofl.config.exception.load": "An exception was been thrown while trying to load the config:"
 }
