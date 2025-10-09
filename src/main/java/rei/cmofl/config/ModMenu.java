@@ -8,6 +8,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +36,17 @@ public class ModMenu implements ModMenuApi
         configCategory.addEntry(configEntryBuilder
                 .startBooleanToggle(Text.translatable("cmofl.config.enabled"), ConfigManager.config.enabled)
                 .setTooltip(Text.translatable("cmofl.config.enabled.tooltip"))
+                .setDefaultValue(true)
                 .setSaveConsumer(value -> ConfigManager.config.enabled = value)
                 .build());
 
         List<AbstractConfigListEntry> abstractConfigListEntryList = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : ConfigManager.config.soundCategories.entrySet())
+        for (Map.Entry<SoundCategory, Integer> entry : ConfigManager.config.soundCategories.entrySet())
         {
-            String key = entry.getKey();
-            abstractConfigListEntryList.add(configEntryBuilder.startIntSlider(Text.literal(key), entry.getValue(), -1, 100)
+            SoundCategory key = entry.getKey();
+            abstractConfigListEntryList.add(configEntryBuilder
+                    .startIntSlider(Text.literal(key.getName()), entry.getValue(), -1, 100)
+                    .setDefaultValue(key.equals(SoundCategory.MUSIC) || key.equals(SoundCategory.RECORDS) ? 0 : -1)
                     .setSaveConsumer(value -> ConfigManager.config.soundCategories.put(key, value))
                     .setTextGetter(integer ->
                     {
