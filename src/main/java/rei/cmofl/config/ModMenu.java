@@ -40,6 +40,13 @@ public class ModMenu implements ModMenuApi
                 .setSaveConsumer(value -> ConfigManager.config.enabled = value)
                 .build());
 
+        configCategory.addEntry(configEntryBuilder
+                .startBooleanToggle(Text.translatable("cmofl.config.muteallsounds"), ConfigManager.config.muteAllSounds)
+                .setTooltip(Text.translatable("cmofl.config.muteallsounds.tooltip"))
+                .setDefaultValue(false)
+                .setSaveConsumer(value -> ConfigManager.config.muteAllSounds = value)
+                .build());
+
         List<AbstractConfigListEntry> abstractConfigListEntryList = new ArrayList<>();
         for (Map.Entry<SoundCategory, Integer> entry : ConfigManager.config.soundCategories.entrySet())
         {
@@ -65,3 +72,4 @@ public class ModMenu implements ModMenuApi
         return configBuilder.build();
     }
 }
+
