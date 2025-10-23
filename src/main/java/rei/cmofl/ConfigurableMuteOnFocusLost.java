@@ -33,15 +33,27 @@ public class ConfigurableMuteOnFocusLost implements ModInitializer
             {
                 if (!focused)
                 {
-                    for (Map.Entry<SoundCategory, Integer> entry : ConfigManager.config.soundCategories.entrySet())
+                    if (ConfigManager.config.muteAllSounds)
                     {
-                        Integer value = entry.getValue();
-                        if (value != -1)
+                        for (SoundCategory soundCategory : SoundCategory.values())
                         {
-                            SoundCategory key = entry.getKey();
-                            SimpleOption<Double> soundVolumeOption = MinecraftClient.getInstance().options.getSoundVolumeOption(key);
-                            previousVolumes.put(key, soundVolumeOption.getValue());
-                            soundVolumeOption.setValue(value / 100.0);
+                            SimpleOption<Double> soundVolumeOption = MinecraftClient.getInstance().options.getSoundVolumeOption(soundCategory);
+                            previousVolumes.put(soundCategory, soundVolumeOption.getValue());
+                            soundVolumeOption.setValue(0.0);
+                        }
+                    }
+                    else
+                    {
+                        for (Map.Entry<SoundCategory, Integer> entry : ConfigManager.config.soundCategories.entrySet())
+                        {
+                            Integer value = entry.getValue();
+                            if (value != -1)
+                            {
+                                SoundCategory key = entry.getKey();
+                                SimpleOption<Double> soundVolumeOption = MinecraftClient.getInstance().options.getSoundVolumeOption(key);
+                                previousVolumes.put(key, soundVolumeOption.getValue());
+                                soundVolumeOption.setValue(value / 100.0);
+                            }
                         }
                     }
                 }
