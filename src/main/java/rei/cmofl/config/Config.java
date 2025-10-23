@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Config
 {
     public boolean enabled = true;
+    public boolean muteAllSounds = false;
     public Map<SoundCategory, Integer> soundCategories = new HashMap<>();
 
     public Config()
