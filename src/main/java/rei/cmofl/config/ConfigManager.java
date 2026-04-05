@@ -2,7 +2,7 @@ package rei.cmofl.config;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 import rei.cmofl.ConfigurableMuteOnFocusLost;
 import java.io.File;
 import java.io.IOException;
@@ -53,8 +53,8 @@ public class ConfigManager
                 ConfigurableMuteOnFocusLost.LOGGER.error(getTextString("cmofl.config.exception.create"), ioException);
             else
             {
-                ConfigurableMuteOnFocusLost.LOGGER.error(Text.translatable("cmofl.config.exception.save").getString(), ioException);
-                ConfigurableMuteOnFocusLost.LOGGER.warn(Text.translatable("cmofl.config.exception.default").getString());
+                ConfigurableMuteOnFocusLost.LOGGER.error(Component.translatable("cmofl.config.exception.save").getString(), ioException);
+                ConfigurableMuteOnFocusLost.LOGGER.warn(Component.translatable("cmofl.config.exception.default").getString());
                 resetConfigToDefault();
             }
         }
@@ -71,9 +71,11 @@ public class ConfigManager
         catch (IOException ignored) {}
     }
 
-    private static String getTextString(String langKey) // For some reason, during mod initialization Text.translatable("langKey").getString() returns the langKey instead of the actual text based in the game's language, I couldn't find an alternative so hardcoded English it is...
+    // For some reason, during mod initialization Text.translatable("langKey").getString() returns the langKey instead of the actual text based in the game's language,
+    // I couldn't find an alternative so hardcoded English it is...
+    private static String getTextString(String langKey)
     {
-        String textString = Text.translatable(langKey).getString();
+        String textString = Component.translatable(langKey).getString();
         if (langKey.equals(textString))
         {
             switch (langKey)

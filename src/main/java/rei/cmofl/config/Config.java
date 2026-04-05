@@ -1,5 +1,5 @@
 package rei.cmofl.config;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.sounds.SoundSource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,14 +8,14 @@ public class Config
 {
     public boolean enabled = true;
     public boolean muteAllSounds = false;
-    public Map<SoundCategory, Integer> soundCategories = new HashMap<>();
+    public Map<SoundSource, Integer> soundSources = new HashMap<>();
 
     public Config()
     {
-        for (SoundCategory soundCategory : SoundCategory.values())
+        for (SoundSource soundSource : SoundSource.values())
         {
-            Integer value = Objects.equals(soundCategory, SoundCategory.MUSIC) || Objects.equals(soundCategory, SoundCategory.RECORDS) ? 0 : -1;
-            soundCategories.put(soundCategory, value);
+            Integer value = Objects.equals(soundSource, SoundSource.MUSIC) || Objects.equals(soundSource, SoundSource.RECORDS) ? 0 : -1;
+            soundSources.put(soundSource, value);
         }
     }
 }

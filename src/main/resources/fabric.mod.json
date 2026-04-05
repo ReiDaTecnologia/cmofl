@@ -7,30 +7,31 @@
 	"authors": [
 		"Rei"
 	],
+	"contact": {
+		"homepage": "https://github.com/ReiDaTecnologia/cmofl",
+		"sources": "https://github.com/ReiDaTecnologia/cmofl",
+		"issues": "https://github.com/ReiDaTecnologia/cmofl/issues"
+	},
 	"license": "MIT",
-    "contact": {
-        "homepage": "https://github.com/ReiDaTecnologia/cmofl",
-        "sources": "https://github.com/ReiDaTecnologia/cmofl",
-        "issues": "https://github.com/ReiDaTecnologia/cmofl/issues"
-    },
 	"icon": "assets/cmofl/icon.png",
 	"environment": "client",
+	"accessWidener": "cmofl.classtweaker",
 	"entrypoints": {
 		"main": [
 			"rei.cmofl.ConfigurableMuteOnFocusLost"
 		],
-        "modmenu": [
-          "rei.cmofl.config.ModMenu"
-        ]
+		"modmenu": [
+			"rei.cmofl.config.ModMenu"
+		]
 	},
 	"depends": {
-		"fabricloader": ">=0.17.2",
-		"minecraft": "~1.21.4",
+		"fabricloader": ">=0.18.6",
+		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
-    "suggests": {
-        "modmenu": ">=13.0.3",
-        "cloth-config": ">=17.0.144"
-    }
+	"suggests": {
+		"modmenu": ">=17.0.0",
+		"cloth-config": ">=21.11.153"
+	}
 }

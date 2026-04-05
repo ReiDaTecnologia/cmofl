@@ -7,9 +7,9 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,53 +23,53 @@ public class ModMenu implements ModMenuApi
         return this::createConfigScreen;
     }
 
+    @SuppressWarnings("rawtypes")
     private Screen createConfigScreen(Screen parent)
     {
         ConfigBuilder configBuilder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Text.translatable("cmofl.config.title"))
+                .setTitle(Component.translatable("cmofl.config.title"))
                 .setSavingRunnable(ConfigManager::save);
 
         ConfigEntryBuilder configEntryBuilder = configBuilder.entryBuilder();
-        ConfigCategory configCategory = configBuilder.getOrCreateCategory(Text.literal("cmofl.config.title"));
+        ConfigCategory configCategory = configBuilder.getOrCreateCategory(Component.literal("cmofl.config.title"));
 
         configCategory.addEntry(configEntryBuilder
-                .startBooleanToggle(Text.translatable("cmofl.config.enabled"), ConfigManager.config.enabled)
-                .setTooltip(Text.translatable("cmofl.config.enabled.tooltip"))
+                .startBooleanToggle(Component.translatable("cmofl.config.enabled"), ConfigManager.config.enabled)
+                .setTooltip(Component.translatable("cmofl.config.enabled.tooltip"))
                 .setDefaultValue(true)
                 .setSaveConsumer(value -> ConfigManager.config.enabled = value)
                 .build());
 
         configCategory.addEntry(configEntryBuilder
-                .startBooleanToggle(Text.translatable("cmofl.config.muteallsounds"), ConfigManager.config.muteAllSounds)
-                .setTooltip(Text.translatable("cmofl.config.muteallsounds.tooltip"))
+                .startBooleanToggle(Component.translatable("cmofl.config.muteallsounds"), ConfigManager.config.muteAllSounds)
+                .setTooltip(Component.translatable("cmofl.config.muteallsounds.tooltip"))
                 .setDefaultValue(false)
                 .setSaveConsumer(value -> ConfigManager.config.muteAllSounds = value)
                 .build());
 
         List<AbstractConfigListEntry> abstractConfigListEntryList = new ArrayList<>();
-        for (Map.Entry<SoundCategory, Integer> entry : ConfigManager.config.soundCategories.entrySet())
+        for (Map.Entry<SoundSource, Integer> entry : ConfigManager.config.soundSources.entrySet())
         {
-            SoundCategory key = entry.getKey();
+            SoundSource soundSource = entry.getKey();
             abstractConfigListEntryList.add(configEntryBuilder
-                    .startIntSlider(Text.literal(key.getName()), entry.getValue(), -1, 100)
-                    .setDefaultValue(key.equals(SoundCategory.MUSIC) || key.equals(SoundCategory.RECORDS) ? 0 : -1)
-                    .setSaveConsumer(value -> ConfigManager.config.soundCategories.put(key, value))
+                    .startIntSlider(Component.literal(soundSource.getName()), entry.getValue(), -1, 100)
+                    .setDefaultValue(soundSource.equals(SoundSource.MUSIC) || soundSource.equals(SoundSource.RECORDS) ? 0 : -1)
+                    .setSaveConsumer(value -> ConfigManager.config.soundSources.put(soundSource, value))
                     .setTextGetter(integer ->
                     {
                         if (integer == -1)
-                            return Text.translatable("cmofl.config.sound_categories.off");
-                        return Text.translatable(integer + "%");
+                            return Component.translatable("cmofl.config.sound_categories.off");
+                        return Component.translatable(integer + "%");
                     })
                     .build());
         }
 
         configCategory.addEntry(configEntryBuilder
-                .startSubCategory(Text.translatable("cmofl.config.sound_categories"), abstractConfigListEntryList)
-                .setTooltip(Text.translatable("cmofl.config.sound_categories.tooltip"))
+                .startSubCategory(Component.translatable("cmofl.config.sound_categories"), abstractConfigListEntryList)
+                .setTooltip(Component.translatable("cmofl.config.sound_categories.tooltip"))
                 .build());
 
         return configBuilder.build();
     }
 }
-
